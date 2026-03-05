@@ -1029,85 +1029,97 @@ function getLastWeekday(date){
 }
 
 async function loadExRate(dateStr){
-  const dateInput=document.getElementById("fxDate");
+  const dateInput = document.getElementById("fxDate");
   let targetDate;
   if(dateStr){
-    targetDate=new Date(dateStr);
+    targetDate = new Date(dateStr);
   } else if(dateInput.value){
-    targetDate=new Date(dateInput.value);
+    targetDate = new Date(dateInput.value);
   } else {
-    targetDate=getLastWeekday(new Date());
+    targetDate = getLastWeekday(new Date());
   }
-  // Ensure weekday
-  targetDate=getLastWeekday(targetDate);
-  dateInput.value=fxDisplayDate(targetDate);
+  targetDate = getLastWeekday(targetDate);
+  dateInput.value = fxDisplayDate(targetDate);
 
-  const searchDate=fxDateStr(targetDate);
-  document.getElementById("fxStatus").textContent="조회 중...";
+  const searchDate = fxDateStr(targetDate);
+  const statusEl = document.getElementById("fxStatus");
+  statusEl.textContent = "조회 중...";
 
-  let loaded=0;
-  for(const fx of FX_CURRENCIES){
+  const apiUrl = `https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=${FX_KEY}&searchdate=${searchDate}&data=AP01`;
+
+  // CORS 프록시 목록 — 순서대로 시도
+  const proxies = [
+    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+    u => `https://api.allorigins.win/get?url=${encodeURIComponent(u)}`,
+    u => `https://thingproxy.freeboard.io/fetch/${u}`,
+  ];
+
+  let data = null;
+
+  for(const makeProxy of proxies){
     try{
-      const url=`https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=${FX_KEY}&searchdate=${searchDate}&data=AP01`;
-      // Use CORS proxy for browser environment
-      const proxyUrl=`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-      const resp=await fetch(proxyUrl);
-      const json=await resp.json();
-      const data=JSON.parse(json.contents);
-      if(Array.isArray(data)){
-        // Only need to parse once for all currencies
-        FX_CURRENCIES.forEach(f=>{
-          const item=data.find(d=>d.cur_unit===f.searchCode||(f.searchCode==="JPY"&&d.cur_unit==="JPY(100)"));
-          if(item){
-            const rate=parseFloat(item.deal_bas_r?.replace(/,/g,""))||0;
-            const el=document.getElementById("fx-"+f.code);
-            if(el){
-              // JPY is quoted per 100
-              const displayRate=(f.searchCode==="JPY")?(rate/100):rate;
-              el.textContent=displayRate>0?displayRate.toLocaleString("ko-KR",{minimumFractionDigits:2,maximumFractionDigits:2})+" ₩":"—";
-            }
-          }
-        });
-        loaded=FX_CURRENCIES.length;
-        break;
+      const proxyUrl = makeProxy(apiUrl);
+      const resp = await fetch(proxyUrl, {signal: AbortSignal.timeout(6000)});
+      if(!resp.ok) continue;
+      const raw = await resp.json();
+
+      // allorigins는 {contents:"..."} 형태로 래핑
+      if(raw && raw.contents){
+        const parsed = JSON.parse(raw.contents);
+        if(Array.isArray(parsed) && parsed.length > 0){ data = parsed; break; }
       }
-    }catch(e){
-      console.warn("환율 조회 실패(proxy):", e);
+      // corsproxy.io / thingproxy는 배열 직접 반환
+      if(Array.isArray(raw) && raw.length > 0){ data = raw; break; }
+    } catch(e){
+      console.warn("프록시 실패:", e.message);
     }
   }
 
-  if(loaded>0){
-    document.getElementById("fxStatus").textContent=`${targetDate.toLocaleDateString("ko-KR")} 기준 (한국수출입은행)`;
+  // 직접 호출 최후 시도 (CORS 허용 환경에서만 성공)
+  if(!data){
+    try{
+      const resp = await fetch(apiUrl, {signal: AbortSignal.timeout(5000)});
+      const raw = await resp.json();
+      if(Array.isArray(raw) && raw.length > 0) data = raw;
+    } catch(e){ /* CORS 차단 시 무시 */ }
+  }
+
+  if(data){
+    applyExRateData(data, targetDate);
   } else {
-    // Fallback: try direct API (may work in some environments)
-    await loadExRateDirect(searchDate, targetDate);
+    statusEl.textContent = "환율 조회 불가 — 잠시 후 다시 시도하세요";
+    // 조회 실패 시 표시값 초기화
+    ["USD","CNY","EUR","JPY"].forEach(c => {
+      const el = document.getElementById("fx-"+c);
+      if(el) el.textContent = "—";
+    });
   }
 }
 
-async function loadExRateDirect(searchDate, targetDate){
-  try{
-    const url=`https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=${FX_KEY}&searchdate=${searchDate}&data=AP01`;
-    const resp=await fetch(url);
-    const data=await resp.json();
-    if(Array.isArray(data)&&data.length>0){
-      FX_CURRENCIES.forEach(f=>{
-        const item=data.find(d=>d.cur_unit===f.searchCode||(f.searchCode==="JPY"&&d.cur_unit==="JPY(100)"));
-        if(item){
-          const rate=parseFloat(item.deal_bas_r?.replace(/,/g,""))||0;
-          const el=document.getElementById("fx-"+f.code);
-          if(el){
-            const displayRate=(f.searchCode==="JPY")?(rate/100):rate;
-            el.textContent=displayRate>0?displayRate.toLocaleString("ko-KR",{minimumFractionDigits:2,maximumFractionDigits:2})+" ₩":"—";
-          }
-        }
-      });
-      document.getElementById("fxStatus").textContent=`${targetDate.toLocaleDateString("ko-KR")} 기준 (한국수출입은행)`;
-    } else {
-      document.getElementById("fxStatus").textContent="데이터 없음 (휴장일 또는 오류)";
+function applyExRateData(data, targetDate){
+  const statusEl = document.getElementById("fxStatus");
+  let found = 0;
+  FX_CURRENCIES.forEach(f => {
+    const item = data.find(d =>
+      d.cur_unit === f.searchCode ||
+      (f.searchCode === "JPY" && d.cur_unit === "JPY(100)")
+    );
+    if(item){
+      const rate = parseFloat((item.deal_bas_r || "").replace(/,/g,"")) || 0;
+      const el = document.getElementById("fx-" + f.code);
+      if(el && rate > 0){
+        const displayRate = (f.searchCode === "JPY") ? rate / 100 : rate;
+        el.textContent = displayRate.toLocaleString("ko-KR",{
+          minimumFractionDigits:2, maximumFractionDigits:2
+        }) + " ₩";
+        found++;
+      }
     }
-  }catch(e){
-    document.getElementById("fxStatus").textContent="환율 정보 조회 불가 (네트워크 오류)";
-    console.error("환율 직접 조회 실패:", e);
+  });
+  if(found > 0){
+    statusEl.textContent = targetDate.toLocaleDateString("ko-KR") + " 기준 (한국수출입은행)";
+  } else {
+    statusEl.textContent = "데이터 없음 (휴장일이거나 조회 대상 없음)";
   }
 }
 
