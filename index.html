@@ -581,7 +581,7 @@ input[type=date].fx-date:focus{border-color:var(--sell)}
 
     </div><!-- /pb -->
     <div class="abar">
-      <button class="btn btn-go" onclick="calculate()">⚡ 비용 산출</button>
+      <button class="btn btn-go" onclick="onClickCalc()">⚡ 비용 산출</button>
       <button class="btn btn-reset" onclick="resetAll()">↺ 초기화</button>
       <button class="btn btn-exp" onclick="exportCSV()">↓ CSV</button>
       <button class="btn btn-exp" onclick="exportJSON()">↓ JSON</button>
@@ -807,16 +807,27 @@ function updateSyms(){
 }
 
 /* ═══════════ AUTO ESTIMATE ═══════════ */
+function onClickCalc(){
+  // 비용 산출 버튼 클릭 — 자동추정 모드면 applyAuto 먼저 실행
+  if(document.getElementById("autoEst").checked){
+    applyAuto();
+  } else {
+    calculate();
+  }
+}
 function toggleAuto(){
   const on = document.getElementById("autoEst").checked;
   if(on) applyAuto();
-  else calculate(); // 체크 해제 시에도 재계산
+  else calculate();
 }
 function applyAuto(){
   const cv = parseFloat(document.getElementById("cargoVal").value) || 0;
-  if(!cv){ calculate(); return; }
-  // 자동 추정: ratio > 0 인 항목 전부 덮어씀 (기존값 무관)
-  COSTS.forEach(([id,,,, sCodes, ratio]) => {
+  if(!cv){
+    alert("화물 가액(Cargo Value)을 먼저 입력해주세요.");
+    return;
+  }
+  // ratio > 0 인 항목 전부 화물 가액 기준으로 덮어씀
+  COSTS.forEach(([id, , , , , ratio]) => {
     if(ratio > 0){
       const el = document.getElementById(id);
       if(el) el.value = Math.round(cv * ratio);
