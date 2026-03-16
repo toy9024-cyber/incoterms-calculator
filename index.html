@@ -31,13 +31,11 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;min-height:100vh;overflow-x:hidden}
 
-/* subtle grid pattern */
 body::before{content:'';position:fixed;inset:0;
   background-image:linear-gradient(rgba(59,158,222,.04) 1px,transparent 1px),
     linear-gradient(90deg,rgba(59,158,222,.04) 1px,transparent 1px);
   background-size:40px 40px;pointer-events:none;z-index:0}
 
-/* ── HEADER ── */
 header{position:relative;z-index:2;
   background:linear-gradient(135deg,#0a1020 0%,#0e1830 60%,#0a1020 100%);
   border-bottom:1px solid var(--bord);padding:2.2rem 2.5rem 1.8rem;overflow:hidden}
@@ -54,12 +52,10 @@ header::before{content:'INCOTERMS';position:absolute;right:-2rem;top:50%;transfo
   border:1px solid rgba(59,158,222,.25);color:var(--muted);padding:.22rem .65rem;border-radius:2px}
 .chip.hi{border-color:rgba(0,212,180,.4);color:var(--acc)}
 
-/* ── LAYOUT ── */
 .wrap{position:relative;z-index:1;max-width:1600px;margin:0 auto;padding:1.5rem}
 .cols{display:grid;grid-template-columns:420px 1fr;gap:1.2rem;align-items:start}
 @media(max-width:1100px){.cols{grid-template-columns:1fr}}
 
-/* ── PANEL ── */
 .panel{background:var(--card);border:1px solid var(--bord);border-radius:6px;
   overflow:hidden;margin-bottom:1rem}
 .ph{background:var(--surf);border-bottom:1px solid var(--bord);
@@ -70,7 +66,6 @@ header::before{content:'INCOTERMS';position:absolute;right:-2rem;top:50%;transfo
   color:var(--sell);padding:.15rem .4rem;border-radius:2px}
 .pb{padding:1.2rem}
 
-/* ── TERM BUTTONS ── */
 .glbl{font-family:var(--mono);font-size:.58rem;letter-spacing:.15em;color:var(--muted);
   text-transform:uppercase;margin-bottom:.45rem;padding-bottom:.3rem;
   border-bottom:1px solid var(--bord)}
@@ -86,7 +81,6 @@ header::before{content:'INCOTERMS';position:absolute;right:-2rem;top:50%;transfo
   padding:.7rem 1rem;border-radius:0 4px 4px 0;font-size:.76rem;color:var(--text);line-height:1.65}
 .tinfo strong{font-family:var(--disp);font-size:1rem;color:var(--white);display:block;margin-bottom:.2rem}
 
-/* ── FORM ── */
 .fsec{margin-bottom:1rem}
 .fsec-title{font-family:var(--mono);font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;
   color:var(--muted);margin-bottom:.55rem;padding-bottom:.28rem;border-bottom:1px solid var(--bord);
@@ -106,12 +100,10 @@ input[type=number]:focus,select:focus{border-color:var(--sell)}
 select{padding-left:.6rem;cursor:pointer;-webkit-appearance:none}
 .est-note{font-family:var(--mono);font-size:.58rem;color:var(--acc);margin-top:.15rem}
 
-/* auto-estimate toggle */
 .est-toggle{display:flex;align-items:center;gap:.5rem;
   font-family:var(--mono);font-size:.62rem;color:var(--muted);cursor:pointer}
 .est-toggle input[type=checkbox]{accent-color:var(--acc);cursor:pointer;width:13px;height:13px}
 
-/* ── ACTIONS ── */
 .abar{display:flex;gap:.55rem;flex-wrap:wrap;
   padding:.9rem 1.2rem;background:var(--surf);border-top:1px solid var(--bord)}
 .btn{font-family:var(--disp);font-size:.75rem;font-weight:700;letter-spacing:.06em;
@@ -125,7 +117,6 @@ select{padding-left:.6rem;cursor:pointer;-webkit-appearance:none}
   font-size:.68rem;padding:.48rem .9rem}
 .btn-exp:hover{background:rgba(45,202,114,.1)}
 
-/* ── SCOREBOARD ── */
 .scoreboard{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;margin-bottom:1.2rem}
 .sc{background:var(--card);border:1px solid var(--bord);border-radius:6px;
   padding:1.1rem 1.2rem;position:relative;overflow:hidden}
@@ -144,7 +135,6 @@ select{padding-left:.6rem;cursor:pointer;-webkit-appearance:none}
 @media(max-width:620px){.scoreboard{grid-template-columns:1fr 1fr}
   .scoreboard .t{grid-column:1/-1}}
 
-/* ── TABS ── */
 .tabs{display:flex;border-bottom:1px solid var(--bord);margin-bottom:1.2rem}
 .tab{font-family:var(--disp);font-size:.72rem;font-weight:700;letter-spacing:.06em;
   text-transform:uppercase;padding:.55rem 1.1rem;cursor:pointer;color:var(--muted);
@@ -153,7 +143,6 @@ select{padding-left:.6rem;cursor:pointer;-webkit-appearance:none}
 .tab:hover{color:var(--text)}
 .tp{display:none}.tp.on{display:block}
 
-/* ── BREAKDOWN TABLE ── */
 .bd{border:1px solid var(--bord);border-radius:6px;overflow:hidden}
 .bdg{padding:.38rem 1rem;font-family:var(--mono);font-size:.6rem;
   letter-spacing:.13em;text-transform:uppercase}
@@ -189,7 +178,6 @@ select{padding-left:.6rem;cursor:pointer;-webkit-appearance:none}
 .ts{font-family:var(--mono);font-size:.95rem;font-weight:600;text-align:right;color:var(--sell)}
 .tb2{font-family:var(--mono);font-size:.95rem;font-weight:600;text-align:right;color:var(--buy)}
 
-/* ── CHART AREA ── */
 .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem}
 @media(max-width:800px){.chart-row{grid-template-columns:1fr}}
 .chart-box{background:var(--card);border:1px solid var(--bord);border-radius:6px;padding:1.1rem}
@@ -197,7 +185,6 @@ select{padding-left:.6rem;cursor:pointer;-webkit-appearance:none}
   color:var(--muted);margin-bottom:.9rem}
 .chart-wrap{position:relative;height:220px}
 
-/* ── COMPARE TABLE ── */
 .cmp-wrap{overflow-x:auto}
 table.cmp{width:100%;border-collapse:collapse;font-size:.77rem}
 table.cmp th{background:var(--surf);color:var(--muted);padding:.5rem .8rem;
@@ -220,7 +207,6 @@ table.cmp tr.arow td:first-child{color:var(--gold);font-weight:700}
 .mfs{height:100%;background:var(--sell);border-radius:3px;transition:width .5s}
 .mpct{font-size:.58rem;color:var(--muted);width:30px}
 
-/* ── RISK TIMELINE ── */
 .risk-grid{display:grid;grid-template-columns:repeat(11,1fr);gap:.25rem;margin:1.4rem 0}
 @media(max-width:700px){.risk-grid{grid-template-columns:repeat(6,1fr)}}
 .stage{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
@@ -256,7 +242,6 @@ table.cmp tr.arow td:first-child{color:var(--gold);font-weight:700}
 .rcard.s .rclbl{color:var(--sell)}.rcard.b .rclbl{color:var(--buy)}
 .rcval{font-size:.78rem;line-height:1.55;color:var(--text)}
 
-/* ── NOTICE ── */
 .note{font-family:var(--mono);font-size:.62rem;color:var(--muted);
   border-top:1px solid var(--bord);padding-top:.7rem;margin-top:.7rem;line-height:1.7}
 .note strong{color:var(--sell)}
@@ -267,7 +252,6 @@ table.cmp tr.arow td:first-child{color:var(--gold);font-weight:700}
 @media print{body{background:#fff;color:#000}.tab-pane{display:block!important}
   .abar,.tabs,.chip,header::before{display:none!important}}
 
-/* ── EXCHANGE RATE WIDGET ── */
 .fx-bar{position:relative;z-index:10;background:rgba(10,16,32,.92);
   border-bottom:1px solid var(--bord);padding:.45rem 2.5rem;
   display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;backdrop-filter:blur(6px)}
@@ -293,7 +277,6 @@ input[type=date].fx-date:focus{border-color:var(--sell)}
 .fx-search-btn:hover{background:rgba(59,158,222,.3)}
 .fx-status{font-family:var(--mono);font-size:.55rem;color:var(--muted);white-space:nowrap}
 
-/* ── FLOWCHART MODAL ── */
 .fc-btn-wrap{margin-bottom:.7rem}
 .btn-flowchart{font-family:var(--disp);font-size:.72rem;font-weight:700;letter-spacing:.06em;
   text-transform:uppercase;padding:.45rem 1rem;border-radius:3px;border:none;cursor:pointer;
@@ -319,7 +302,6 @@ input[type=date].fx-date:focus{border-color:var(--sell)}
   letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
 .fc-progress span{color:var(--acc)}
 
-/* Question box */
 .fc-q{background:rgba(59,158,222,.07);border:1px solid rgba(59,158,222,.2);
   border-radius:6px;padding:1.2rem 1.4rem;margin-bottom:1.1rem}
 .fc-q-txt{font-size:.9rem;color:var(--white);line-height:1.65;font-weight:500}
@@ -332,7 +314,6 @@ input[type=date].fx-date:focus{border-color:var(--sell)}
 .fc-opt.no{background:rgba(90,112,144,.12);color:var(--muted);border:1px solid var(--bord)}
 .fc-opt.no:hover{background:rgba(90,112,144,.25);color:var(--text)}
 
-/* Result box */
 .fc-result{background:rgba(245,200,66,.08);border:2px solid rgba(245,200,66,.35);
   border-radius:6px;padding:1.3rem 1.4rem;text-align:center}
 .fc-result-code{font-family:var(--disp);font-size:2.2rem;font-weight:800;color:var(--gold);
@@ -349,7 +330,6 @@ input[type=date].fx-date:focus{border-color:var(--sell)}
   border-radius:3px;cursor:pointer;margin-left:.6rem;transition:all .15s}
 .fc-restart:hover{border-color:var(--sell);color:var(--sell)}
 
-/* Breadcrumb trail */
 .fc-trail{margin-bottom:1rem}
 .fc-trail-item{display:inline-flex;align-items:center;gap:.3rem;font-family:var(--mono);
   font-size:.58rem;color:var(--muted)}
@@ -458,6 +438,7 @@ input[type=date].fx-date:focus{border-color:var(--sell)}
           </select>
         </div>
       </div>
+
       <!-- 입력 화폐 단위 -->
       <div style="background:rgba(59,158,222,.07);border:1px solid rgba(59,158,222,.2);border-radius:5px;padding:.75rem 1rem;margin-bottom:1rem">
         <div style="font-family:var(--mono);font-size:.58rem;color:var(--sell);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.55rem">💱 비용 입력 화폐 단위 (수출측 / 수입측 개별 설정)</div>
@@ -676,7 +657,6 @@ const TINFO = {
   CIF:"운임·보험료 포함 인도. CFR + ICC(C) 최소 보험 의무. 원자재·벌크 해상 거래에 전통적 사용."
 };
 
-// [id, 한국명, 영문명, 그룹, 판매자부담조건[], 자동추정비율(화물가액대비%)]
 const COSTS = [
   ["c_origInland","내륙 운송 (수출측)","Origin Inland Freight","origin",ALL_CODES,0.005],
   ["c_origTHC","수출 터미널 비용","Origin THC / Handling","origin",["FCA","CPT","CIP","DAP","DPU","DDP","FAS","FOB","CFR","CIF"],0.003],
@@ -725,22 +705,15 @@ const RISK_DESC={
 
 const SYMS={USD:"$",KRW:"₩",EUR:"€",CNY:"¥",JPY:"¥"};
 
-/* ── FX 환율 캐시 (loadExRate 성공 시 채워짐) ──
-   fxRates[code] = 1 KRW 당 해당 통화 단위
-   예) fxRates.USD = 0.000745 → 1KRW = 0.000745USD
-       역수: 1USD = 1341 KRW
-*/
 const fxRates = {USD:null, EUR:null, CNY:null, JPY:null};
 
-/* 입력 금액 → KRW 변환 */
 function toKRW(amount, fromCurrency){
   if(!amount || amount === 0) return 0;
   if(fromCurrency === "KRW") return amount;
-  const rate = fxRates[fromCurrency]; // 1 KRW = rate [fromCurrency]
-  if(!rate || rate === 0) return amount; // 환율 없으면 그대로
-  return amount / rate; // amount [fromCurrency] ÷ rate = KRW
+  const rate = fxRates[fromCurrency];
+  if(!rate || rate === 0) return amount;
+  return amount / rate;
 }
-/* KRW → 표시 화폐 변환 */
 function fromKRW(krw, toCurrency){
   if(toCurrency === "KRW") return krw;
   const rate = fxRates[toCurrency];
@@ -796,19 +769,15 @@ function setInfo(){
     `<strong>${sel}${sea?` <span style="font-size:.7rem;color:var(--acc)">[해상 전용]</span>`:""}</strong>${TINFO[sel]}`;
 }
 function updateSyms(){
-  // 수출측 심볼
   const sO = SYMS[document.getElementById("currencyOrigin").value] || "$";
   document.querySelectorAll(".sym-origin").forEach(x => x.textContent = sO);
-  // 수입측 심볼
   const sD = SYMS[document.getElementById("currencyDest").value] || "$";
   document.querySelectorAll(".sym-dest").forEach(x => x.textContent = sD);
-  // 화물 가액 심볼 (수출측 기준)
   document.querySelectorAll(".isym.sym").forEach(x => x.textContent = sO);
 }
 
 /* ═══════════ AUTO ESTIMATE ═══════════ */
 function onClickCalc(){
-  // 비용 산출 버튼 클릭 — 자동추정 모드면 applyAuto 먼저 실행
   if(document.getElementById("autoEst").checked){
     applyAuto();
   } else {
@@ -826,7 +795,6 @@ function applyAuto(){
     alert("화물 가액(Cargo Value)을 먼저 입력해주세요.");
     return;
   }
-  // ratio > 0 인 항목 전부 화물 가액 기준으로 덮어씀
   COSTS.forEach(([id, , , , , ratio]) => {
     if(ratio > 0){
       const el = document.getElementById(id);
@@ -839,11 +807,9 @@ function applyAuto(){
 /* ═══════════ CALC ═══════════ */
 function gv(id){ return parseFloat(document.getElementById(id)?.value) || 0; }
 
-/* 입력값을 KRW로 환산 — 그룹별 화폐 적용 */
 function gvKRW(id, grp){
   const raw = gv(id);
   if(raw === 0) return 0;
-  // freight(국제운송)는 수출측 단위 적용
   const cur = (grp === "dest")
     ? document.getElementById("currencyDest").value
     : document.getElementById("currencyOrigin").value;
@@ -855,14 +821,14 @@ function calcFor(code){
   let s=0, b=0;
   const rows = COSTS.map(([id,name,eng,grp,sCodes]) => {
     const amtKRW = gvKRW(id, grp);
-    const amt    = fromKRW(amtKRW, outCur); // 표시 화폐로 변환
+    const amt    = fromKRW(amtKRW, outCur);
     const isSeller = sCodes.includes(code);
     if(isSeller) s += amt; else b += amt;
     return {id, name, eng, grp, amt, amtKRW, isSeller};
   });
   return {seller:s, buyer:b, total:s+b, rows};
 }
-/* 금액 포맷 — 표시 화폐 기준 */
+
 function fmt(n){
   const c = document.getElementById("currency").value;
   const s = SYMS[c] || "$";
@@ -871,12 +837,10 @@ function fmt(n){
   return s + n.toLocaleString("ko-KR", {minimumFractionDigits:0, maximumFractionDigits:0});
 }
 
-/* 결과 금액 — KRW 기본 표시 + 환율 있는 모든 외화 병기 */
 function fmtFull(n){
   const outCur = document.getElementById("currency").value;
   if(!n || n === 0) return "—";
 
-  // n은 outCur 단위 → 먼저 KRW로 역산
   let krwAmt;
   if(outCur === "KRW"){
     krwAmt = n;
@@ -885,20 +849,17 @@ function fmtFull(n){
     krwAmt = (rate && rate > 0) ? n / rate : null;
   }
 
-  // 기본 표시: 선택 화폐
   let html = fmt(n);
 
-  // KRW가 선택 화폐가 아니고 KRW 금액을 알면 → 원화 먼저 병기
   if(outCur !== "KRW" && krwAmt){
     const krwStr = "₩" + Math.round(krwAmt).toLocaleString("ko-KR");
     html += '<span style="display:block;font-size:.65em;color:var(--acc);margin-top:.2rem;font-weight:600">≈ ' + krwStr + '</span>';
   }
 
-  // 나머지 외화 병기 (선택 화폐 & KRW 제외)
   const others = ["USD","EUR","CNY","JPY"].filter(c => c !== outCur);
   const subParts = [];
   others.forEach(c => {
-    const rate = fxRates[c]; // 1 KRW = rate [c]
+    const rate = fxRates[c];
     if(!rate || rate === 0) return;
     const base = krwAmt || (outCur === "KRW" ? n : null);
     if(!base) return;
@@ -938,8 +899,6 @@ function calculate(){
 /* ── Scoreboard ── */
 function renderScoreboard(r){
   const sp=pct(r.seller,r.total), bp=pct(r.buyer,r.total);
-  const outCur = document.getElementById("currency").value;
-  const noteKRW = "";
   document.getElementById("scoreboard").innerHTML=`
     <div class="sc s">
       <div class="sc-lbl">판매자 부담 · Seller</div>
@@ -956,7 +915,7 @@ function renderScoreboard(r){
     <div class="sc t">
       <div class="sc-lbl">총 무역 비용 · Total</div>
       <div class="sc-val">${fmtFull(r.total)}</div>
-      <div class="sc-pct">${sel} 조건 기준 합계${noteKRW}</div>
+      <div class="sc-pct">${sel} 조건 기준 합계</div>
     </div>`;
 }
 
@@ -965,34 +924,40 @@ const GN={origin:"수출측 비용 (Origin Charges)",freight:"국제 운송 비�
 
 /* 금액 셀 — 표시 화폐 + 입력 화폐 병기 */
 function fmtWithInput(row){
-  if(!row.amt || row.amt === 0) return "—";
-  
-  const outCur = document.getElementById("currency").value;
-  const inputCur = (row.grp === "dest")
-    ? document.getElementById("currencyDest").value
-    : document.getElementById("currencyOrigin").value;
+  if(!row.amt || row.amt===0) return "—";
+  const outCur=document.getElementById("currency").value;
+  const inputCur=(row.grp==="dest")
+    ?document.getElementById("currencyDest").value
+    :document.getElementById("currencyOrigin").value;
 
   // 표시 화폐 금액 (메인)
-  let html = fmt(row.amt);
+  let html=fmt(row.amt);
 
   // 입력 화폐 == 표시 화폐면 병기 생략
-  if(inputCur === outCur) return html;
+  if(inputCur===outCur) return html;
 
-  // 입력 원래 금액 복원: KRW 경유 역산
-  const rate = fxRates[inputCur]; // 1 KRW = rate [inputCur]
-  if(!rate || rate === 0) return html;
+  // row.amtKRW → 입력 화폐로 변환하여 원래 입력값 복원
+  if(!row.amtKRW || row.amtKRW===0) return html;
 
-  // row.amtKRW → 입력 화폐로 변환
-  const inputAmt = row.amtKRW * rate;
+  let inputAmt;
   const sym = SYMS[inputCur] || inputCur;
-  let inputStr;
-  if(inputCur === "KRW" || inputCur === "JPY"){
-    inputStr = sym + Math.round(inputAmt).toLocaleString("ko-KR");
+
+  if(inputCur==="KRW"){
+    inputAmt = row.amtKRW;
   } else {
-    inputStr = sym + inputAmt.toLocaleString("ko-KR",{minimumFractionDigits:0,maximumFractionDigits:0});
+    const rate=fxRates[inputCur]; // 1 KRW = rate [inputCur]
+    if(!rate||rate===0) return html;
+    inputAmt = row.amtKRW * rate;
   }
 
-  html += `<span style="display:block;font-size:.62em;color:var(--muted);margin-top:.15rem;font-family:var(--mono)">입력: ${inputStr} ${inputCur}</span>`;
+  let inputStr;
+  if(inputCur==="KRW"||inputCur==="JPY"){
+    inputStr=sym+Math.round(inputAmt).toLocaleString("ko-KR");
+  } else {
+    inputStr=sym+inputAmt.toLocaleString("ko-KR",{minimumFractionDigits:0,maximumFractionDigits:0});
+  }
+
+  html+=`<span style="display:block;font-size:.62em;color:var(--muted);margin-top:.15rem;font-family:var(--mono)">입력: ${inputStr} ${inputCur}</span>`;
   return html;
 }
 
@@ -1002,8 +967,8 @@ function renderBreakdown(r){
     h+=`<div class="bdg ${grp}">${GN[grp]}</div>`;
     r.rows.filter(x=>x.grp===grp).forEach(row=>{
       const sA=row.isSeller?row.amt:0, bA=row.isSeller?0:row.amt, z=row.amt===0?" zero":"";
-      const sCell = sA>0 ? fmtWithInput(row) : "—";
-      const bCell = bA>0 ? fmtWithInput(row) : "—";
+      const sCell=sA>0?fmtWithInput(row):"—";
+      const bCell=bA>0?fmtWithInput(row):"—";
       h+=`<div class="bdr${z}">
         <div><div class="in">${row.name}</div><div class="isub">${row.eng}</div></div>
         <div class="cs${sA===0?" cz":""}">${sCell}</div>
@@ -1019,24 +984,11 @@ function renderBreakdown(r){
   </div>`;
   document.getElementById("bdTable").innerHTML=h;
 }
-```
-
-**핵심 변경점 3가지:**
-
-1. **`fmtWithInput(row)` 신규 함수** — `row.amtKRW`(이미 KRW로 환산된 값)를 입력 화폐로 역산해서 "입력: $500 USD" 형태로 셀 아래에 병기
-2. **입력 화폐 = 표시 화폐이면 병기 생략** — 동일할 때 중복 표시 안 함
-3. **`renderBreakdown()`에서 `fmt()` → `fmtWithInput()`으로 교체** — 판매자/구매자 셀 모두 적용
-
-예를 들어 수출측 입력 단위가 USD이고 결과 표시가 KRW인 경우, 비용 분담 내역 테이블에 이렇게 표시됩니다:
-```
-₩670,500
-입력: $500 USD
 
 /* ── Charts ── */
 function renderCharts(r){
   const sp=parseFloat(pct(r.seller,r.total)), bp=parseFloat(pct(r.buyer,r.total));
 
-  // 도넛
   if(charts.donut) charts.donut.destroy();
   charts.donut=new Chart(document.getElementById("chartDonut"),{
     type:"doughnut",
@@ -1051,7 +1003,6 @@ function renderCharts(r){
         tooltip:{callbacks:{label:ctx=>`${ctx.label}: ${fmt(ctx.parsed)} (${ctx.dataIndex===0?sp:bp}%)`}}}}
   });
 
-  // 가로 막대 — 항목별 판매자/구매자
   const nonZero=r.rows.filter(x=>x.amt>0);
   if(charts.bar) charts.bar.destroy();
   charts.bar=new Chart(document.getElementById("chartBar"),{
@@ -1069,7 +1020,6 @@ function renderCharts(r){
       plugins:{legend:{labels:{color:"#5a7090",font:{family:"JetBrains Mono",size:10}}}}}
   });
 
-  // 조건별 비교 막대
   const allR=ALL_CODES.map(c=>calcFor(c));
   if(charts.cmp) charts.cmp.destroy();
   charts.cmp=new Chart(document.getElementById("chartCompare"),{
@@ -1156,7 +1106,6 @@ function openTab(name,el){
   document.querySelectorAll(".tp").forEach(p=>p.classList.remove("on"));
   el.classList.add("on");
   document.getElementById("tab-"+name).classList.add("on");
-  // re-render charts when switching to chart tab
   if(name==="charts") renderCharts(calcFor(sel));
 }
 
@@ -1208,17 +1157,13 @@ const FX_CURRENCIES = [
   {code:"JPY", label:"🇯🇵 JPY", name:"일본 엔화"},
 ];
 
-/* ── 날짜 유틸 ── */
 function fxDateStr(d){
-  // YYYYMMDD
   const y=d.getFullYear();
   const m=String(d.getMonth()+1).padStart(2,"0");
   const dd=String(d.getDate()).padStart(2,"0");
   return y+m+dd;
 }
 function fxDisplayDate(d){
-  // toISOString()은 UTC 기준 → 한국(UTC+9)에서 자정 이전에 하루 밀리는 버그
-  // 로컬 날짜 기준으로 직접 포맷
   const y  = d.getFullYear();
   const m  = String(d.getMonth()+1).padStart(2,"0");
   const dd = String(d.getDate()).padStart(2,"0");
@@ -1226,22 +1171,17 @@ function fxDisplayDate(d){
 }
 function getLastWeekday(date){
   const d=new Date(date);
-  // 입력이 문자열이면 로컬 자정 기준으로 처리
   const day=d.getDay();
-  if(day===0) d.setDate(d.getDate()-2); // 일요일 → 금요일
-  else if(day===6) d.setDate(d.getDate()-1); // 토요일 → 금요일
+  if(day===0) d.setDate(d.getDate()-2);
+  else if(day===6) d.setDate(d.getDate()-1);
   return d;
 }
 
-/* ── 환율 조회 (exchangerate-api + 한국은행 fallback) ── */
-// KRW 기준 환율을 반환하는 무료 CORS-허용 API 사용
-// https://open.er-api.com — 무료, CORS 완전 허용, 키 불필요
 async function loadExRate(){
   const dateInput = document.getElementById("fxDate");
   const statusEl  = document.getElementById("fxStatus");
 
-  // ── 날짜 처리 (로컬 기준, UTC 버그 없음) ──────────────────
-  let dateStr = dateInput.value; // "YYYY-MM-DD"
+  let dateStr = dateInput.value;
   if(!dateStr){
     const now = new Date();
     const dow = now.getDay();
@@ -1251,14 +1191,9 @@ async function loadExRate(){
     dateInput.value = dateStr;
   }
 
-  // YYYYMMDD 형식 (수출입은행 API 파라미터)
   const dateEcos = dateStr.replace(/-/g,"");
-
   statusEl.textContent = "조회 중...";
 
-  // ── 1순위: 한국수출입은행 API (Cloudflare Worker 경유) ────
-  // 매일 오전 11시 고시환율 — 한국 시간 기준 실시간
-  // 응답: [{cur_unit:"USD", deal_bas_r:"1,340.00", ...}, ...]
   const WORKER_URL = "https://koreaexim-proxy.toy9024.workers.dev";
   const EXIM_CODES = {USD:"USD", EUR:"EUR", CNY:"CNY", JPY:"JPY(100)"};
 
@@ -1266,11 +1201,9 @@ async function loadExRate(){
   let srcLabel = "";
   let actualDate = dateStr;
 
-  // 당일 데이터가 없을 수 있으므로 최대 5일 전까지 역순으로 시도
   for(let offset=0; offset<=5; offset++){
     const d = new Date(dateStr);
     d.setDate(d.getDate() - offset);
-    // 주말 건너뜀
     if(d.getDay()===0) { d.setDate(d.getDate()-2); }
     else if(d.getDay()===6) { d.setDate(d.getDate()-1); }
     const tryDate = fxDisplayDate(d).replace(/-/g,"");
@@ -1288,13 +1221,11 @@ async function loadExRate(){
       }
     } catch(e){
       console.warn("수출입은행 Worker 실패:", tryDate, e.message);
-      break; // 네트워크 오류면 바로 fallback
+      break;
     }
   }
 
   if(data){
-    // 수출입은행 응답 파싱
-    // deal_bas_r: 매매기준율 (쉼표 포함 문자열)
     let found = 0;
     FX_CURRENCIES.forEach(f => {
       const eimCode = EXIM_CODES[f.code];
@@ -1304,15 +1235,13 @@ async function loadExRate(){
 
       const rate = parseFloat((item.deal_bas_r||"").replace(/,/g,""));
       if(rate > 0){
-        // JPY는 100엔 기준 → 표시도 100엔 기준
-        // fxRates: 1 KRW = ? 외화 단위
         if(f.code === "JPY"){
-          fxRates.JPY = 100 / rate; // 1 KRW = (100/rate) JPY
+          fxRates.JPY = 100 / rate;
           el.textContent = rate.toLocaleString("ko-KR",
             {minimumFractionDigits:2, maximumFractionDigits:2}) + " ₩ / 100엔";
           el.title = "100엔 = " + rate.toFixed(2) + " ₩";
         } else {
-          fxRates[f.code] = 1 / rate; // 1 KRW = (1/rate) 외화
+          fxRates[f.code] = 1 / rate;
           el.textContent = rate.toLocaleString("ko-KR",
             {minimumFractionDigits:2, maximumFractionDigits:2}) + " ₩";
           el.title = "1 " + f.code + " = " + rate.toFixed(2) + " ₩";
@@ -1329,7 +1258,6 @@ async function loadExRate(){
     calculate();
 
   } else {
-    // ── 2순위 Fallback: 한국은행 ECOS ──────────────────────
     statusEl.textContent = "수출입은행 조회 실패 → 한국은행 데이터로 대체 중...";
 
     const ECOS_KEY  = "EL8VDWE8FMRGLMEENBHO";
@@ -1396,10 +1324,7 @@ async function loadExRate(){
   }
 }
 
-
 /* ═══════════ FLOWCHART ═══════════ */
-// ICC Incoterms(R) 2020 Flowchart - BUYER'S POINT OF VIEW
-// Source: FLOW구분.xlsx (Sheet1=문항, Sheet2=플로우)
 const FC_NODES = {
   P1: {
     q: "판매자의 창고(공장)에서부터 모든 비용과 위험을 부담할 준비가 되어 있습니까?",
@@ -1568,8 +1493,6 @@ function fcOverlayClick(e){
 
 function renderFcNode(){
   var node = FC_NODES[fcCurrentNode];
-
-  // 노드가 없으면 처음으로
   if(!node){
     console.error("FC_NODES에서 노드를 찾을 수 없음:", fcCurrentNode);
     fcCurrentNode = "P1";
@@ -1585,7 +1508,6 @@ function renderFcNode(){
   stepEl.textContent  = fcHistory.length + 1;
   totalEl.textContent = "~" + (fcHistory.length + 4);
 
-  // 경로 표시
   var trailH = "";
   for(var i=0; i<fcHistory.length; i++){
     var h = fcHistory[i];
@@ -1598,7 +1520,6 @@ function renderFcNode(){
   }
   trailEl.innerHTML = trailH;
 
-  // 결과 노드
   if(node.result){
     var isDual = node.result.indexOf("(") !== -1;
     var applyLabel = isDual ? "⚡ 세부 코드 선택하기" : "✓ 이 코드로 계산기에 적용";
@@ -1615,7 +1536,6 @@ function renderFcNode(){
       + '</div>'
       + '</div>';
   } else {
-    // 질문 노드
     var engHtml = node.eng
       ? '<div style="font-family:var(--mono);font-size:.6rem;color:var(--muted);margin-top:.5rem;padding-top:.5rem;border-top:1px solid var(--bord);line-height:1.5">'
         + node.eng + '</div>'
@@ -1656,14 +1576,12 @@ function fcRestart(){
 }
 
 function applyFcCode(code){
-  // 단일 코드면 바로 적용
   if(ALL_CODES.includes(code)){
     sel=code; refreshBtns(); setInfo(); calculate();
     closeFlowchart();
     document.querySelector(".panel").scrollIntoView({behavior:"smooth"});
     return;
   }
-  // CPT(CIP) 또는 CFR(CIF) 형식 — 두 코드 중 선택
   const pairs={"CPT(CIP)":["CPT","CIP"],"CFR(CIF)":["CFR","CIF"]};
   const opts=pairs[code];
   if(opts){
@@ -1705,7 +1623,6 @@ function applyFcCode(code){
 
 /* ── Init exchange rate on page load ── */
 document.addEventListener("DOMContentLoaded",()=>{
-  // Set default date
   const today=getLastWeekday(new Date());
   document.getElementById("fxDate").value=fxDisplayDate(today);
   loadExRate();
