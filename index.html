@@ -962,16 +962,52 @@ function renderScoreboard(r){
 
 /* ── Breakdown ── */
 const GN={origin:"수출측 비용 (Origin Charges)",freight:"국제 운송 비용 (International)",dest:"수입측 비용 (Destination Charges)"};
+
+/* 금액 셀 — 표시 화폐 + 입력 화폐 병기 */
+function fmtWithInput(row){
+  if(!row.amt || row.amt === 0) return "—";
+  
+  const outCur = document.getElementById("currency").value;
+  const inputCur = (row.grp === "dest")
+    ? document.getElementById("currencyDest").value
+    : document.getElementById("currencyOrigin").value;
+
+  // 표시 화폐 금액 (메인)
+  let html = fmt(row.amt);
+
+  // 입력 화폐 == 표시 화폐면 병기 생략
+  if(inputCur === outCur) return html;
+
+  // 입력 원래 금액 복원: KRW 경유 역산
+  const rate = fxRates[inputCur]; // 1 KRW = rate [inputCur]
+  if(!rate || rate === 0) return html;
+
+  // row.amtKRW → 입력 화폐로 변환
+  const inputAmt = row.amtKRW * rate;
+  const sym = SYMS[inputCur] || inputCur;
+  let inputStr;
+  if(inputCur === "KRW" || inputCur === "JPY"){
+    inputStr = sym + Math.round(inputAmt).toLocaleString("ko-KR");
+  } else {
+    inputStr = sym + inputAmt.toLocaleString("ko-KR",{minimumFractionDigits:0,maximumFractionDigits:0});
+  }
+
+  html += `<span style="display:block;font-size:.62em;color:var(--muted);margin-top:.15rem;font-family:var(--mono)">입력: ${inputStr} ${inputCur}</span>`;
+  return html;
+}
+
 function renderBreakdown(r){
   let h=`<div class="bdh"><div class="hn">비용 항목</div><div class="hs">판매자(SELLER)</div><div class="hb">구매자(BUYER)</div></div>`;
   ["origin","freight","dest"].forEach(grp=>{
     h+=`<div class="bdg ${grp}">${GN[grp]}</div>`;
     r.rows.filter(x=>x.grp===grp).forEach(row=>{
       const sA=row.isSeller?row.amt:0, bA=row.isSeller?0:row.amt, z=row.amt===0?" zero":"";
+      const sCell = sA>0 ? fmtWithInput(row) : "—";
+      const bCell = bA>0 ? fmtWithInput(row) : "—";
       h+=`<div class="bdr${z}">
         <div><div class="in">${row.name}</div><div class="isub">${row.eng}</div></div>
-        <div class="cs${sA===0?" cz":""}">${sA>0?fmt(sA):"—"}</div>
-        <div class="cb${bA===0?" cz":""}">${bA>0?fmt(bA):"—"}</div>
+        <div class="cs${sA===0?" cz":""}">${sCell}</div>
+        <div class="cb${bA===0?" cz":""}">${bCell}</div>
       </div>`;
     });
   });
@@ -983,6 +1019,18 @@ function renderBreakdown(r){
   </div>`;
   document.getElementById("bdTable").innerHTML=h;
 }
+```
+
+**핵심 변경점 3가지:**
+
+1. **`fmtWithInput(row)` 신규 함수** — `row.amtKRW`(이미 KRW로 환산된 값)를 입력 화폐로 역산해서 "입력: $500 USD" 형태로 셀 아래에 병기
+2. **입력 화폐 = 표시 화폐이면 병기 생략** — 동일할 때 중복 표시 안 함
+3. **`renderBreakdown()`에서 `fmt()` → `fmtWithInput()`으로 교체** — 판매자/구매자 셀 모두 적용
+
+예를 들어 수출측 입력 단위가 USD이고 결과 표시가 KRW인 경우, 비용 분담 내역 테이블에 이렇게 표시됩니다:
+```
+₩670,500
+입력: $500 USD
 
 /* ── Charts ── */
 function renderCharts(r){
